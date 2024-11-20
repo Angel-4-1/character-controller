@@ -12,7 +12,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 0,
     name: CATEGORIES_NAMES.HEAD,
-    parentPath: "models/character/head/",
+    parentPath: "/models/character/head/",
     assets: [
       {
         model: "Head.001.glb",
@@ -40,7 +40,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 1,
     name: CATEGORIES_NAMES.HAIR,
-    parentPath: "models/character/hair/",
+    parentPath: "/models/character/hair/",
     assets: [
       {
         model: "Hair.001.glb",
@@ -85,7 +85,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 2,
     name: CATEGORIES_NAMES.FACE,
-    parentPath: "models/character/face/",
+    parentPath: "/models/character/face/",
     assets: [
       {
         model: "FaceMask.glb",
@@ -97,7 +97,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 3,
     name: CATEGORIES_NAMES.EYES,
-    parentPath: "models/character/eyes/",
+    parentPath: "/models/character/eyes/",
     assets: [
       {
         model: "Eyes.001.glb",
@@ -117,7 +117,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 4,
     name: CATEGORIES_NAMES.EYEBROWS,
-    parentPath: "models/character/eyebrows/",
+    parentPath: "/models/character/eyebrows/",
     assets: [
       {
         model: "Eyebrow.001.glb",
@@ -141,7 +141,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 5,
     name: CATEGORIES_NAMES.NOSE,
-    parentPath: "models/character/nose/",
+    parentPath: "/models/character/nose/",
     assets: [
       {
         model: "Nose.001.glb",
@@ -165,7 +165,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 6,
     name: CATEGORIES_NAMES.FACIAL_HAIR,
-    parentPath: "models/character/facialHair/",
+    parentPath: "/models/character/facialHair/",
     assets: [
       {
         model: "FacialHair.001.glb",
@@ -178,7 +178,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 7,
     name: CATEGORIES_NAMES.GLASSES,
-    parentPath: "models/character/glasses/",
+    parentPath: "/models/character/glasses/",
     assets: [
       {
         model: "Glasses.001.glb",
@@ -199,7 +199,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 8,
     name: CATEGORIES_NAMES.HAT,
-    parentPath: "models/character/hat/",
+    parentPath: "/models/character/hat/",
     assets: [
       {
         model: "Hat.001.glb",
@@ -220,7 +220,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 9,
     name: CATEGORIES_NAMES.TOP,
-    parentPath: "models/character/top/",
+    parentPath: "/models/character/top/",
     assets: [
       {
         model: "Top.001.glb",
@@ -240,7 +240,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 10,
     name: CATEGORIES_NAMES.BOTTOM,
-    parentPath: "models/character/bottom/",
+    parentPath: "/models/character/bottom/",
     assets: [
       {
         model: "Bottom.001.glb",
@@ -256,7 +256,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 11,
     name: CATEGORIES_NAMES.SHOES,
-    parentPath: "models/character/shoes/",
+    parentPath: "/models/character/shoes/",
     assets: [
       {
         model: "Shoes.001.glb",
@@ -273,7 +273,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 12,
     name: CATEGORIES_NAMES.ACCESSORIES,
-    parentPath: "models/character/accessories/",
+    parentPath: "/models/character/accessories/",
     assets: [
       {
         model: "Earring.001.glb",
@@ -298,7 +298,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 13,
     name: CATEGORIES_NAMES.OUTFIT,
-    parentPath: "models/character/outfit/",
+    parentPath: "/models/character/outfit/",
     assets: [
       {
         model: "Outfit.001.glb",
