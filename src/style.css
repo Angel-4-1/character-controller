@@ -1,0 +1,49 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+@font-face {
+  font-family: PoppinsRegular;
+  src: url(fonts/Poppins-Regular.ttf);
+}
+
+html,
+body,
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: ivory;
+
+  font-family: PoppinsRegular, Arial !important;
+}
+
+/* Personalizar la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 8px;  /* Ancho de la scrollbar (en dispositivos de escritorio) */
+  height: 8px; /* Alto de la scrollbar (si es horizontal) */
+}
+
+/* Estilo para el "thumb" (la parte que se mueve) */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);  /* Color de la parte móvil */
+  border-radius: 10px;                    /* Bordes redondeados */
+  border: 2px solid transparent;           /* Evita bordes extra */
+  background-clip: content-box;            /* Evita que el borde se mezcle */
+}
+
+/* Estilo para el track (fondo de la scrollbar) */
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05); /* Fondo sutil */
+  border-radius: 10px;
+}
+
+/* Estilo cuando la scrollbar está siendo activada o al hacer hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);  /* Color más oscuro cuando se pasa el ratón */
+}
+

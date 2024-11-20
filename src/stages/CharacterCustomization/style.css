@@ -1,0 +1,246 @@
+@font-face {
+  font-family: PoppinsRegular;
+  src: url(fonts/Poppins-Regular.ttf);
+}
+
+.container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+
+  font-family: PoppinsRegular, "Poppins", Arial !important;
+}
+
+.download-button {
+  border-radius: 0.5rem /* 8px */;
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity)) /* #6366f1 */;
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 300ms;
+
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
+
+  font-weight: 500;
+
+  padding-left: 1rem /* 16px */;
+  padding-right: 1rem /* 16px */;
+
+  padding-top: 0.75rem /* 12px */;
+  padding-bottom: 0.75rem /* 12px */;
+
+  pointer-events: auto;
+
+  border: none;
+
+  cursor: pointer;
+
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.download-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 70 229 / var(--tw-bg-opacity)) /* #4f46e5 */;
+}
+
+.assets-box {
+  border-radius: 0.5rem /* 8px */;
+  border: 3px solid rgba(32, 24, 63, 0.4);
+
+  backdrop-filter: blur(10px);
+  display: flex;
+
+  flex-direction: column;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  gap: 0.75rem /* 12px */;
+}
+
+.assets-box-2 {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem /* 24px */;
+  pointer-events: auto;
+
+  overflow-x: auto;
+
+  padding-left: 1.5rem /* 24px */;
+  padding-right: 1.5rem /* 24px */;
+  padding-bottom: 0.5rem /* 8px */;
+
+  overflow-x: auto;
+}
+
+.category {
+  color: black;
+  font-weight: 500;
+  flex-shrink: 0;
+
+  background-color: transparent;
+  border: none;
+  border-bottom-width: 1px;
+
+  cursor: pointer;
+}
+
+.category:hover {
+  color: rgb(255, 255, 255);
+}
+
+.category-selected {
+  color: rgb(255, 255, 255);
+
+  border-bottom: 2px solid white;
+}
+
+.assets-box-assets {
+  display: flex;
+  gap: 0.5rem /* 8px */;
+  flex-wrap: wrap;
+
+  padding-left: 1.5rem /* 24px */;
+  padding-right: 1.5rem /* 24px */;
+}
+
+.asset {
+  width: 5rem /* 80px */;
+  height: 5rem /* 80px */;
+  
+  border-radius: 10px;
+
+  border: 3px solid black;
+  
+  overflow: hidden;
+
+  pointer-events: auto;
+  cursor: pointer;
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 300ms;
+
+  padding: 3px;
+}
+
+.asset:hover {
+  opacity: 0.5;
+}
+
+.asset img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  border: none;
+}
+
+.asset-selected {
+  border-color: white;
+}
+
+.asset-no-selected {
+  opacity: 0.8;
+}
+
+/* Removable asset */
+.removable {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgb(0 0 0 / 0.4);
+  color: #ffffff;
+}
+
+/* Randomize */
+.randomize {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.5rem /* 8px */;
+  background-color: #6366f1;
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+
+  color: #ffffff;
+  font-weight: 500;
+
+  border: none;
+
+  pointer-events: auto;
+
+  padding: 6px;
+  cursor: pointer;
+}
+
+.randomize:hover {
+  background-color: #4f46e5;
+}
+
+/* Color picker */
+.color-picker {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  gap: 0.5rem /* 8px */;
+  max-width: 100%;
+  overflow-x: auto;
+
+  padding-top: 0.5rem /* 8px */;
+  padding-bottom: 0.5rem /* 8px */;
+
+  padding-left: 0.5rem /* 8px */;
+  padding-right: 0.5rem /* 8px */;
+}
+
+.color-picker-button {
+  width: 2.5rem /* 40px */;
+  height: 2.5rem /* 40px */;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+  border: 2px solid black;
+  
+  overflow: hidden;
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+
+  border-width: 2px;
+
+  padding: 3px;
+}
+
+.color-picker-button-selected {
+  border-color: white;
+}
+
+.asset-locked {
+  font-size: small;
+  color: #f87171;
+  padding-left: 24px;
+  padding-right: 24px;
+}
