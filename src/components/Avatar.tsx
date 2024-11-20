@@ -4,8 +4,8 @@ import { useConfiguratorStore } from '~/store';
 import { Asset } from './Asset';
 import { GLTFExporter } from 'three-stdlib';
 
-const MODEL_PATH = '/models/character/Armature.glb';
-const IDLE_ANIMATION_PATH = '/models/character/Idle.fbx';
+const MODEL_PATH = 'models/character/Armature.glb';
+const IDLE_ANIMATION_PATH = 'models/character/Idle.fbx';
 
 export const Avatar = (props: any) => {
   const group = useRef();
