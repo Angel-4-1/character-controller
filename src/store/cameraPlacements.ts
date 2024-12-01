@@ -1,0 +1,40 @@
+import { CameraPlacement, CATEGORIES_NAMES } from "./contract";
+
+export const CAMERA_PLACEMENTS: CameraPlacement[] = [
+  {
+    id: 0,
+    name: CATEGORIES_NAMES.HEAD,
+    position: [-0.8981593592179211, 0.8633214532629379, 2.0598109865260716],
+    target: [0.01150325041364589, 0.4748428001715253, -0.09266790995157592]
+  },
+  {
+    id: 0,
+    name: CATEGORIES_NAMES.HAIR,
+    position: [-1.302913127844512, 1.7437388141346948, 2.0431225188617956],
+    target: [0.01150325041364589, 0.4748428001715253, -0.09266790995157592]
+  },
+  {
+    id: 0,
+    name: CATEGORIES_NAMES.TOP,
+    position: [-0.14928117144484188, 0.02516663941558006, 2.7713061328419415],
+    target: [-0.04279930085376753, -0.3956088202062596, -0.005562227255665871]
+  },
+  {
+    id: 0,
+    name: CATEGORIES_NAMES.BOTTOM,
+    position: [-0.16283431737359683, -0.4649287921066921, 2.8450499836736975],
+    target: [-0.056352446782522485, -0.8857042517285317, 0.06818162357609038]
+  },
+  {
+    id: 0,
+    name: CATEGORIES_NAMES.SHOES,
+    position: [-0.8291891161562084, -0.24440670226643435, 2.213339051367651],
+    target: [-0.0941386206244789, -1.0353602977179968, 0.10031215991285777]
+  }
+];
+
+export function findCameraPlacementByCategoryName(categoryName: CATEGORIES_NAMES): CameraPlacement | undefined {
+  const camera = CAMERA_PLACEMENTS.find(cameraPlacement => cameraPlacement.name === categoryName);
+
+  return camera;
+}

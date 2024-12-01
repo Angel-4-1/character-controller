@@ -6,6 +6,28 @@ import React, { useEffect } from "react";
 import { languageAtom, stageAtom } from "~/Experience";
 import { STAGES, STAGES_MAP } from "~/constants";
 import { useConfiguratorStore } from "~/store";
+import { PHOTO_POSES } from "~/store/animations";
+import { UI_MODES } from "~/store/uiModes";
+
+const PosesBox = () => {
+  const pose = useConfiguratorStore((state) => state.pose);
+  const setPose = useConfiguratorStore((state) => state.setPose);
+
+  return (
+    <div className="assets-box-2">
+      {Object.keys(PHOTO_POSES).map((pose) => (
+        <button
+          key={pose}
+          // @ts-ignore
+          onClick={() => setPose(PHOTO_POSES[pose])}
+        >
+          {pose}
+        </button>
+      ))}
+
+    </div>
+  )
+};
 
 const AssetsBox = () => {
   const {
@@ -17,8 +39,8 @@ const AssetsBox = () => {
     lockedGroups,
   } = useConfiguratorStore();
 
-  if(currentCategory)
-    console.log( customization[currentCategory.name] )
+  // if(currentCategory)
+  //   console.log( customization[currentCategory.name] )
 
   return (
     <div className="assets-box">
@@ -116,8 +138,25 @@ const DownloadButton = () => {
   );
 };
 
+const NextButton = () => {
+  const [stage, setStage] = useAtom(stageAtom);
+
+	const onClick = () => {
+		setStage(STAGES[STAGES_MAP.PLAY_STAGE]);
+	};
+  
+  return (
+    <button
+      className="download-button"
+      onClick={onClick}
+    >
+      Next
+    </button>
+  );
+};
+
 const RandomizeButton = () => {
-  const randomize = useConfiguratorStore((state: any) => state.randomize);
+  const randomize = useConfiguratorStore((state) => state.randomize);
   
   return (
     <button
@@ -137,6 +176,36 @@ const RandomizeButton = () => {
             strokeLinejoin="round"
             d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
       </svg>
+    </button>
+  );
+};
+
+const ScreenshotButton = () => {
+  const screenshot = useConfiguratorStore((state) => state.screenshot);
+  
+  return (
+    <button
+      className="randomize"
+      onClick={screenshot}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="currentColor"
+        className="size-6">
+          <path 
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+          
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+    </svg>
+
     </button>
   );
 };
@@ -178,12 +247,6 @@ const ColorPicker = () => {
 };
 
 export default function CharacterCustomizationInterface() {
-	const [stage, setStage] = useAtom(stageAtom);
-
-	const onClick = () => {
-		setStage(STAGES[STAGES_MAP.PLAY_STAGE]);
-	};
-
 	const [language, setLanguage] = useAtom(languageAtom);
 
   const currentCategory = useConfiguratorStore(
@@ -191,6 +254,8 @@ export default function CharacterCustomizationInterface() {
   );
 
   const customization = useConfiguratorStore((state: any) => state.customization)
+  const mode = useConfiguratorStore((state) => state.mode);
+  const setMode = useConfiguratorStore((state) => state.setMode);
 
 	return (
       <main
@@ -221,6 +286,7 @@ export default function CharacterCustomizationInterface() {
               justifyContent: 'space-between',
               alignItems: 'center',
               padding: '2.5rem' /* 40px */,
+              paddingTop: '0px',
             }}
           >
             <a
@@ -236,12 +302,15 @@ export default function CharacterCustomizationInterface() {
                 src="/icon.png"
               />
             </a>
+
             <div style={{
               display: "flex",
               gap: "6px",
             }}>
               <RandomizeButton />
+              <ScreenshotButton />
               <DownloadButton />
+              <NextButton />
             </div>
           </div>
 
@@ -252,9 +321,45 @@ export default function CharacterCustomizationInterface() {
               paddingLeft: '2.5rem' /* 40px */,
               paddingRight: '2.5rem' /* 40px */,
             }}>
-              {currentCategory?.colorPalette &&
-                customization[currentCategory.name] && <ColorPicker />}
-              <AssetsBox />
+              { mode === UI_MODES.CUSTOMIZE && (
+                <>
+                  {currentCategory?.colorPalette &&
+                    customization[currentCategory.name] && <ColorPicker />}
+                  <AssetsBox />
+                </>
+              )}
+              { mode === UI_MODES.PHOTO && (
+                <PosesBox />
+              )}
+
+              <div className="modes">
+                <button
+                  className={`modes-button
+                    ${
+                      mode === UI_MODES.CUSTOMIZE
+                        ? "modes-button-selected"
+                        : "modes-button-not-selected"
+                    }
+                  `}
+                  onClick={() => setMode(UI_MODES.CUSTOMIZE)}
+                >
+                  Customize avatar
+                </button>
+                <div className="modes-divider"></div>
+                <button
+                  className={`modes-button
+                    ${
+                      mode === UI_MODES.PHOTO
+                        ? "modes-button-selected"
+                        : "modes-button-not-selected"
+                    }
+                    `}
+                  onClick={() => setMode(UI_MODES.PHOTO)}
+                >
+                  Photo booth
+                </button>
+              </div>
+
           </div>
         </div>
       </main>

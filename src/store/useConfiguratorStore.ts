@@ -3,6 +3,8 @@ import { randInt } from 'three/src/math/MathUtils';
 import { create } from 'zustand'
 import { CATEGORIES, findAssetByName } from './categories';
 import { CATEGORIES_NAMES, Category, CategoryAsset, ConfiguratorStore } from './contract';
+import { PHOTO_POSES } from './animations';
+import { UI_MODES } from './uiModes';
 
 export const useConfiguratorStore = create<ConfiguratorStore>()((set, get: any) => ({
   categories: CATEGORIES,
@@ -27,8 +29,13 @@ export const useConfiguratorStore = create<ConfiguratorStore>()((set, get: any) 
     color: 0xD79D6A,
     roughness: 1
   }),
+  pose: PHOTO_POSES.Idle,
+  mode: UI_MODES.CUSTOMIZE,
+
   download: () => {},
   setDownload: (download: any) => set({ download }),
+  screenshot: () => {},
+  setScreenshot: (screenshot: any) => set({ screenshot }),
   updateColor: (color: string) => {
     set((state: any) => ({
       customization: {
@@ -117,5 +124,12 @@ export const useConfiguratorStore = create<ConfiguratorStore>()((set, get: any) 
     });
 
     set({ lockedGroups });
+  },
+  setPose: (pose: string) => set({ pose }),
+  setMode: (mode: string) => {
+    set({ mode });
+    if (mode === UI_MODES.CUSTOMIZE) {
+      set({ pose: PHOTO_POSES.Idle });
+    }
   },
 }))

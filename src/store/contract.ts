@@ -43,6 +43,7 @@ export interface Category {
   assets: CategoryAsset[];
   colorPalette?: CustomizationPalette;
   removable?: boolean;
+  cameraPlacement?: CameraPlacement;
 }
 
 export interface FindAssetByName {
@@ -60,6 +61,14 @@ type LockedGroupItem = {
   lockedBy: string;
 };
 
+export interface CameraPlacement {
+  id: number;
+  name: CATEGORIES_NAMES;
+  position: [number, number, number];
+  target: [number, number, number];
+}
+
+/* Store */
 export interface ConfiguratorStore {
   /* State */
   categories: Category[];
@@ -71,10 +80,14 @@ export interface ConfiguratorStore {
     [key in CATEGORIES_NAMES]?: CustomizationValue;
   };
   skin: MeshStandardMaterial;
+  pose: string;
+  mode: string;
 
   /* Actions */
   download: () => void;
   setDownload: (download: () => void) => void;
+  screenshot: () => void;
+  setScreenshot: (screenshot: () => void) => void;
   updateColor: (color: string) => void;
   updateSkin: (color: string) => void;
   setCurrentCategory: (category: Category) => void;
@@ -85,4 +98,6 @@ export interface ConfiguratorStore {
   ) => void;
   randomize: () => void;
   applyLockedAssets: () => void;
+  setPose: (pose: string) => void;
+  setMode: (mode: string) => void;
 }

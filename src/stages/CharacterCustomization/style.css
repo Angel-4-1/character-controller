@@ -244,3 +244,38 @@
   padding-left: 24px;
   padding-right: 24px;
 }
+
+/* Modes */
+.modes {
+  display: flex;
+  justify-content: stretch;
+}
+
+.modes-button {
+  flex: 1 1 0%;
+  pointer-events: auto;
+  cursor: pointer;
+  padding: 16px;
+  color: "#fff";
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  font-weight: 500;
+}
+
+.modes-button-selected {
+  background-color: rgb(99 102 241 / 0.9);
+}
+
+.modes-button-not-selected {
+  background-color: rgb(99 102 241 / 0.3);
+}
+
+.modes-button-not-selected:hover {
+  background-color: rgb(99 102 241 / 0.5);
+}
+
+.modes-divider {
+  width: 1px;
+  background-color: rgb(255 255 255 / 0.3);
+}

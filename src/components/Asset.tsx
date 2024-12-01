@@ -44,8 +44,10 @@ export const Asset = ({
             ? skin
             // @ts-ignore
             : child.material,
-          // morphTargetDictionary: child.morphTargetDictionary,
-          // morphTargetInfluences: child.morphTargetInfluences,
+          // @ts-ignore
+          morphTargetDictionary: child.morphTargetDictionary,
+          // @ts-ignore
+          morphTargetInfluences: child.morphTargetInfluences,
         });
       }
     });
@@ -62,6 +64,8 @@ export const Asset = ({
       skeleton={skeleton}
       geometry={item.geometry}
       material={item.material}
+      morphTargetDictionary={item.morphTargetDictionary}
+      morphTargetInfluences={item.morphTargetInfluences}
       castShadow
       receiveShadow
     />

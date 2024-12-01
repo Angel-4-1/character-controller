@@ -3,61 +3,74 @@ import { useAnimations, useFBX, useGLTF } from '@react-three/drei'
 import { useConfiguratorStore } from '~/store';
 import { Asset } from './Asset';
 import { GLTFExporter } from 'three-stdlib';
+import { dedup, draco, prune, quantize } from '@gltf-transform/functions';
+import { NodeIO } from '@gltf-transform/core';
 
 const MODEL_PATH = 'models/character/Armature.glb';
 const IDLE_ANIMATION_PATH = 'models/character/Idle.fbx';
+const ANIMATION_PATH = 'models/character/animations/animations.glb';
 
 export const Avatar = (props: any) => {
   const group = useRef();
   const { nodes } = useGLTF(MODEL_PATH);
   
-  const customization = useConfiguratorStore((state: any) => state.customization);
+  const customization = useConfiguratorStore((state) => state.customization);
   
   // Animations
-  const { animations } = useFBX(IDLE_ANIMATION_PATH);
+  // const { animations } = useFBX(IDLE_ANIMATION_PATH);
+  const { animations } = useGLTF(ANIMATION_PATH);
   const { actions } = useAnimations( animations, group );
 
+  // Pose
+  const pose = useConfiguratorStore((state) => state.pose);
+
   useEffect(() => {
-    actions["mixamo.com"]?.play();
-  }, [animations])
+    // actions["Idle"]?.play();
+    actions[pose || "Idle"]?.fadeIn(0.2).play();
+    
+    return () => {
+      actions[pose]?.fadeOut(0.2).stop()
+    };
+  }, [animations, pose])
 
   // Download
-  const setDownload = useConfiguratorStore((state: any) => state.setDownload);
+  const setDownload = useConfiguratorStore((state) => state.setDownload);
 
   useEffect(() => {
     function download() {
       const exporter = new GLTFExporter();
       exporter.parse(
-        // We only one to export the Avatar, so we use the group reference
+        // We only want to export the Avatar, so we use the group reference
         // @ts-ignore
         group.current,
 
         async function (result) {
-          // const io = new NodeIO();
+          const io = new NodeIO();
 
-          // // Read.
-          // const document = await io.readBinary(new Uint8Array(result)); // Uint8Array → Document
-          // await document.transform(
-          //   // Remove unused nodes, textures, or other data.
-          //   prune(),
-          //   // Remove duplicate vertex or texture data, if any.
-          //   dedup(),
-          //   // Compress mesh geometry with Draco.
-          //   draco(),
-          //   // Quantize mesh geometry.
-          //   quantize()
-          // );
+          // Read
+          // @ts-ignore
+          const document = await io.readBinary(new Uint8Array(result)); // Uint8Array → Document
+          await document.transform(
+            // Remove unused nodes, textures, or other data.
+            prune(),
+            // Remove duplicate vertex or texture data, if any.
+            dedup(),
+            // Compress mesh geometry with Draco.
+            draco(),
+            // Quantize mesh geometry.
+            quantize()
+          );
 
-          // // Write.
-          // const glb = await io.writeBinary(document); // Document → Uint8Array
+          // Write.
+          const glb = await io.writeBinary(document); // Document → Uint8Array
 
           save(
-            // new Blob([glb], { type: "application/octet-stream" }),
-            // `avatar_${+new Date()}.glb`
+            new Blob([glb], { type: "application/octet-stream" }),
+            `avatar_${+new Date()}.glb`
 
             // @ts-ignore
-            new Blob([result], { type: "application/octet-stream" }),
-            `avatar_${+new Date()}.glb`
+            // new Blob([result], { type: "application/octet-stream" }),
+            // `avatar_${+new Date()}.glb`
           );
         },
 

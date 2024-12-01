@@ -8,6 +8,7 @@ import Show from './components/Show'
 import Interface from './Interface'
 import { Experience } from './components/Experience'
 import CharacterCustomizationInterface from './stages/CharacterCustomization/CharacterCustomizationInterface'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
@@ -49,6 +50,7 @@ const keyboardMap = [
   { name: "left", keys: ["ArrowLeft", "KeyA"] },
   { name: "right", keys: ["ArrowRight", "KeyD"] },
   { name: "run", keys: ["Shift"] },
+  { name: "jump", keys: ["Space"] },
 ];
 
 function AppForMap() {
@@ -69,22 +71,34 @@ function AppForMap() {
     </KeyboardControls>
   );
 }
+
 function App() {
   return (
     <KeyboardControls map={keyboardMap}>
       {/* <CharacterCustomizationInterface /> */}
       <Canvas
         shadows
-        camera={{ position: [-1,1,5], near: 0.1, fov: 45 }}
+        camera={{ position: [500, 100, 1000], near: 0.1, fov: 45 }}
         style={{
           touchAction: "none"
         }}
+        gl={{
+          preserveDrawingBuffer: true,
+        }}
         >
-        <color attach="background" args={["#555"]} />
-        <fog attach="fog" args={["#555", 15, 24]}/>
-        <group position-y={-1}>
-          <ExperienceLegacy />
-        </group>
+        <color attach="background" args={["#130f30"]} />
+        <fog attach="fog" args={["#130f30", 10, 40]}/>
+        
+        <ExperienceLegacy />
+
+        {/* <EffectComposer>
+          <Bloom
+            mipmapBlur
+            // luminanceThreshold={1.2}
+            intensity={5}
+          />
+        </EffectComposer> */}
+
       </Canvas>
       <Interface />
     </KeyboardControls>

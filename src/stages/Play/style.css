@@ -7,9 +7,9 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 25%;
-  background: rgba(0,0,0,0.1);
-  backdrop-filter: blur(1px);
+  height: 100%;
+  /* background: rgba(0,0,0,0.1);
+  backdrop-filter: blur(1px); */
 }
 
 .elements-container {
@@ -25,4 +25,77 @@
 
 .language-container .name {
   margin-left: 2vw;
+}
+
+/**
+ * Controls
+ */
+.controls {
+  position: absolute;
+  bottom: 5%;
+  left: 3%;
+
+  display: grid;
+  column-gap: 2%;
+  grid-template-areas: "left nothing right";
+  align-items: center;
+}
+
+.content-left {
+  grid-area: left;
+}
+
+.content-right {
+  grid-area: right;
+}
+
+.key-with-defintion {
+  display: grid;
+  column-gap: 2%;
+  grid-template-areas: "left nothing right";
+  justify-content: left;
+}
+
+.key-with-defintion-right {
+  grid-area: right;
+}
+
+.key-with-defintion-left {
+  grid-area: left;
+}
+
+.text-centered {
+  /* Center text vertical and horizontal*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2.25vh;
+}
+
+/* Key properties */
+.raw {
+  display: flex;
+  justify-content: center;
+}
+
+.key {
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  border: 2px solid #ffffff;
+  border-radius: 10%;
+  background: #ffffff44;
+}
+
+.key.large {
+  width: 144px;
+}
+
+.key.medium {
+  width: 100px;
+}
+
+.key.active {
+  background: #ffffff99;
 }

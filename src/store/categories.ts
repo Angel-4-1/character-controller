@@ -1,3 +1,4 @@
+import { findCameraPlacementByCategoryName } from "./cameraPlacements";
 import { CATEGORIES_NAMES, Category, CUSTOMIZATION_PALETTES_NAMES, FindAssetByName } from "./contract";
 import { findPaletteByName } from "./customizationPalettes";
 
@@ -36,6 +37,7 @@ export const CATEGORIES: Category[] = [
       },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.SKIN),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 1,
@@ -81,6 +83,7 @@ export const CATEGORIES: Category[] = [
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.HAIR),
     removable: true,
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HAIR),
   },
   {
     id: 2,
@@ -91,8 +94,33 @@ export const CATEGORIES: Category[] = [
         model: "FaceMask.glb",
         image: "",
       },
+      {
+        model: "Face.001.glb",
+        image: "",
+      },
+      {
+        model: "Face.002.glb",
+        image: "",
+      },
+      {
+        model: "Face.003.glb",
+        image: "",
+      },
+      {
+        model: "Face.004.glb",
+        image: "",
+      },
+      {
+        model: "Face.005.glb",
+        image: "",
+      },
+      {
+        model: "Face.006.glb",
+        image: "",
+      },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.SKIN),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 3,
@@ -111,8 +139,25 @@ export const CATEGORIES: Category[] = [
         model: "Eyes.003.glb",
         image: "eyes.jpg",
       },
+      {
+        model: "Eyes.004.glb",
+        image: "eyes.jpg",
+      },
+      {
+        model: "Eyes.005.glb",
+        image: "eyes.jpg",
+      },
+      {
+        model: "Eyes.006.glb",
+        image: "eyes.jpg",
+      },
+      {
+        model: "Eyes.007.glb",
+        image: "eyes.jpg",
+      },
     ],
-    colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.EYES)
+    colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.EYES),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 4,
@@ -137,6 +182,7 @@ export const CATEGORIES: Category[] = [
       },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.HAIR),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 5,
@@ -161,6 +207,7 @@ export const CATEGORIES: Category[] = [
       },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.SKIN),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 6,
@@ -170,10 +217,35 @@ export const CATEGORIES: Category[] = [
       {
         model: "FacialHair.001.glb",
         image: "",
-      }
+      },
+      {
+        model: "FacialHair.002.glb",
+        image: "",
+      },
+      {
+        model: "FacialHair.003.glb",
+        image: "",
+      },
+      {
+        model: "FacialHair.004.glb",
+        image: "",
+      },
+      {
+        model: "FacialHair.005.glb",
+        image: "",
+      },
+      {
+        model: "FacialHair.006.glb",
+        image: "",
+      },
+      {
+        model: "FacialHair.007.glb",
+        image: "",
+      },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.HAIR),
     removable: true,
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 7,
@@ -191,10 +263,15 @@ export const CATEGORIES: Category[] = [
       {
         model: "Glasses.003.glb",
         image: "",
-      }
+      },
+      {
+        model: "Glasses.004.glb",
+        image: "",
+      },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.CLOTHES),
     removable: true,
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HEAD),
   },
   {
     id: 8,
@@ -212,10 +289,27 @@ export const CATEGORIES: Category[] = [
       {
         model: "Hat.003.glb",
         image: "crown.png",
+      },
+      {
+        model: "Hat.004.glb",
+        image: "crown.png",
+      },
+      {
+        model: "Hat.005.glb",
+        image: "crown.png",
+      },
+      {
+        model: "Hat.006.glb",
+        image: "crown.png",
+      },
+      {
+        model: "Hat.007.glb",
+        image: "crown.png",
       }
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.CLOTHES),
     removable: true,
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.HAIR),
   },
   {
     id: 9,
@@ -236,6 +330,7 @@ export const CATEGORIES: Category[] = [
       },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.CLOTHES),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.TOP),
   },
   {
     id: 10,
@@ -252,6 +347,7 @@ export const CATEGORIES: Category[] = [
       },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.CLOTHES),
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.BOTTOM),
   },
   {
     id: 11,
@@ -259,16 +355,21 @@ export const CATEGORIES: Category[] = [
     parentPath: "models/character/shoes/",
     assets: [
       {
+        model: "Shoes.002.glb",
+        image: "shoes.jpg",
+      },
+      {
         model: "Shoes.001.glb",
         image: "shoes.jpg",
       },
       {
-        model: "Shoes.002.glb",
+        model: "Shoes.003.glb",
         image: "shoes.jpg",
       },
     ],
     colorPalette: findPaletteByName(CUSTOMIZATION_PALETTES_NAMES.CLOTHES),
     removable: true,
+    cameraPlacement: findCameraPlacementByCategoryName(CATEGORIES_NAMES.SHOES),
   },
   {
     id: 12,
@@ -302,7 +403,7 @@ export const CATEGORIES: Category[] = [
     assets: [
       {
         model: "Outfit.001.glb",
-        image: "",
+        image: "Outfit.001.png",
         lockedGroups: outfitLockedGroups,
       },
       {
