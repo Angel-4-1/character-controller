@@ -6,6 +6,43 @@ import { TRANSLATIONS } from "~/translations";
 import './style.css'
 import { STAGES, STAGES_MAP } from "~/constants";
 import { useKeyboardControls } from "@react-three/drei";
+import { SVG } from "~/components/SVG";
+
+const Camera = () => {
+  return (
+    <>
+      <button
+        className="button-custom"
+        //onClick={screenshot}
+      >
+        <SVG
+          d={"m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"}
+        />
+      </button>
+    </>
+  )
+}
+
+const CustomizeCharacter = () => {
+  const [stage, setStage] = useAtom(stageAtom);
+
+  const onClick = () => {
+    setStage(STAGES[STAGES_MAP.CHARACTER_STAGE]);
+  };
+
+  return (
+    <>
+      <button
+        className="button-custom"
+        onClick={onClick}
+      >
+        <SVG
+          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+        />
+      </button>
+    </>
+  )
+}
 
 const Keyboard = () => {
   const forward = useKeyboardControls((state) => state.forward)
@@ -75,14 +112,10 @@ const Keyboard = () => {
 export default function PlayInterface() {
   const [language] = useAtom(languageAtom);
 
-  const [stage, setStage] = useAtom(stageAtom);
-
-  const onBackClick = () => {
-    setStage(STAGES[STAGES_MAP.INTRO_STAGE]);
-  };
+  
 
   return <div className="play-container">
-    <div className="elements-container">
+    {/* <div className="elements-container">
       <div className="language-container">
         <div className="title">
           <h4>{useTranslation(TRANSLATIONS.playStage.language.title)}:</h4>
@@ -92,6 +125,13 @@ export default function PlayInterface() {
         </div>
       </div>
       <button onClick={onBackClick}>Back</button>
+    </div> */}
+
+    <div className="buttons-group">
+      <div className="buttons-group-row">
+        <Camera />
+        <CustomizeCharacter />
+      </div>
     </div>
 
     <Keyboard />

@@ -99,3 +99,52 @@
 .key.active {
   background: #ffffff99;
 }
+
+/* Buttons group */
+.buttons-group {
+  pointer-events: none;
+  position: fixed;
+  z-index: 10;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  gap: 6px;
+  
+  top: 0;
+  width: 100%;
+}
+
+.buttons-group-row {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  margin: 20px;
+}
+
+/* Button custom */
+.button-custom {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.5rem /* 8px */;
+  background-color: #6366f1;
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+
+  color: #ffffff;
+  font-weight: 500;
+
+  border: none;
+
+  pointer-events: auto;
+
+  padding: 6px;
+  cursor: pointer;
+}
+
+.button-custom:hover {
+  background-color: #4f46e5;
+}

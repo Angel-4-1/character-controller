@@ -29,6 +29,11 @@ const lerpAngle = (start: number, end: number, t: number) => {
   return normalizeAngle(start + (end - start) * t);
 };
 
+const CAMERA_SETUPS = {
+  far: { x: 0, y: 4, z: -4 },
+  near: { x: 0, y: 0.8, z: -2.2 },
+}
+
 export const CharacterController = () => {
   const { WALK_SPEED, RUN_SPEED, ROTATION_SPEED, JUMP_ALTITUDE } = useControls("Character Control", {
     WALK_SPEED: { value: 0.8, min: 0.1, max: 4, step: 0.1 },
@@ -44,7 +49,7 @@ export const CharacterController = () => {
 
   const { CAMERA_POSITION } = useControls("Camera", {
     CAMERA_POSITION: {
-      value: { x: 0, y: 4, z: -4 },
+      value: CAMERA_SETUPS.near,
       min: -10,
       max: 10,
       step: 0.1
