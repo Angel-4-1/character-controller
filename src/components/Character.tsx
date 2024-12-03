@@ -11,19 +11,19 @@ export function Character({ animation, ...props }) {
   const group = useRef();
 
   /* Model */
-  const { nodes, materials, scene } = useGLTF("/models/avatar_pumkin2.glb");
-  useEffect(() => {
-    scene.traverse((child) => {
-      // @ts-ignore
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-  }, [scene]);
+  // const { nodes, materials, scene } = useGLTF("models/avatar_pumkin2.glb");
+  // useEffect(() => {
+  //   scene.traverse((child) => {
+  //     // @ts-ignore
+  //     if (child.isMesh) {
+  //       child.castShadow = true;
+  //       child.receiveShadow = true;
+  //     }
+  //   });
+  // }, [scene]);
   
   /* Animations */
-  const { animations } = useGLTF("/models/character/animations/characterAnimationsPlayStage.glb");
+  const { animations } = useGLTF("models/character/animations/characterAnimationsPlayStage.glb");
   const { actions } = useAnimations(animations, group);
   // @ts-ignore
   useEffect(() => {
@@ -40,4 +40,4 @@ export function Character({ animation, ...props }) {
   );
 }
 
-useGLTF.preload("/models/character.glb");
+// useGLTF.preload("/models/character.glb");
