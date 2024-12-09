@@ -1,30 +1,52 @@
 import React from "react";
 import { useAtom } from "jotai";
-import { languageAtom, stageAtom } from "~/Experience";
+import { stageAtom } from "~/Experience";
 import { useTranslation } from "~/utils/useTranslation";
 import { TRANSLATIONS } from "~/translations";
 import './style.css'
 import { STAGES, STAGES_MAP } from "~/constants";
 import { useKeyboardControls } from "@react-three/drei";
 import { SVG } from "~/components/SVG";
+import Button from "~/components/Button";
 
-const Camera = () => {
+const Home = () => {
+  const [_, setStage] = useAtom(stageAtom);
+
+  const onClick = () => {
+    setStage(STAGES[STAGES_MAP.INTRO_STAGE]);
+  };
+
   return (
     <>
-      <button
-        className="button-custom"
-        //onClick={screenshot}
+      <Button
+        onClick={onClick}
+      >
+        <SVG
+          d={"m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"}
+        />
+      </Button>
+    </>
+  )
+}
+
+const Camera = () => {
+  const onClick = () => {}
+
+  return (
+    <>
+      <Button
+        onClick={onClick}
       >
         <SVG
           d={"m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"}
         />
-      </button>
+      </Button>
     </>
   )
 }
 
 const CustomizeCharacter = () => {
-  const [stage, setStage] = useAtom(stageAtom);
+  const [_, setStage] = useAtom(stageAtom);
 
   const onClick = () => {
     setStage(STAGES[STAGES_MAP.CHARACTER_STAGE]);
@@ -32,14 +54,13 @@ const CustomizeCharacter = () => {
 
   return (
     <>
-      <button
-        className="button-custom"
+      <Button
         onClick={onClick}
       >
         <SVG
           d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
         />
-      </button>
+      </Button>
     </>
   )
 }
@@ -110,27 +131,15 @@ const Keyboard = () => {
 }
 
 export default function PlayInterface() {
-  const [language] = useAtom(languageAtom);
-
-  
-
   return <div className="play-container">
-    {/* <div className="elements-container">
-      <div className="language-container">
-        <div className="title">
-          <h4>{useTranslation(TRANSLATIONS.playStage.language.title)}:</h4>
-        </div>
-        <div className="name">
-          <h4>{language.screen_name}</h4>
-        </div>
-      </div>
-      <button onClick={onBackClick}>Back</button>
-    </div> */}
-
     <div className="buttons-group">
       <div className="buttons-group-row">
-        <Camera />
+        <Home />
         <CustomizeCharacter />
+      </div>
+      
+      <div className="buttons-group-row">
+        <Camera />
       </div>
     </div>
 

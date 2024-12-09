@@ -5,9 +5,13 @@ import { useConfiguratorStore } from "~/store";
 import { UI_MODES } from "~/store/uiModes";
 
 export const CAMERA_DEFAULTS = {
-  position: [-1, 1, 5],
-  target: [0, 0, 0],
+  position: [-3.6, 1, 4.4],
+  target: [-0.8, -0.2, -1],
 };
+// export const CAMERA_DEFAULTS = {
+//   position: [-1, 1, 5],
+//   target: [0, 0, 0],
+// };
 
 export const CameraManager = () => {
   const controls = useRef<any>();
@@ -48,6 +52,15 @@ export const CameraManager = () => {
       // maxAzimuthAngle={Math.PI / 4}
       minDistance={2}
       maxDistance={8}
+      // Disable mouse interaction
+      mouseButtons={
+        {
+          left: 0, // 0 = NONE
+          right: 0,
+          wheel: 16, // 16 = ZOOM
+          middle: 0,
+        }
+      }
     />
   )
 }

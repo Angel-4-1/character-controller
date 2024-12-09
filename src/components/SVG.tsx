@@ -1,6 +1,14 @@
-export const SVG = ({
+import { FC } from "react";
+
+interface SVGProps {
+  d: string | string[];
+}
+
+export const SVG: FC<SVGProps> = ({
   d,
-}: {d: string}) => {
+}) => {
+  const pathData = Array.isArray(d) ? d : [d];
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,11 +18,14 @@ export const SVG = ({
       stroke="currentColor"
       className="size-6"
     >
-      <path 
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d={d} 
-      />
+      {pathData.map((path, index) => (
+        <path
+          key={index}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d={path}
+        />
+      ))}
     </svg>
   )
 }

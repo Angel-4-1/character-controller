@@ -90,7 +90,7 @@ export interface ConfiguratorStore {
   setScreenshot: (screenshot: () => void) => void;
   updateColor: (color: string) => void;
   updateSkin: (color: string) => void;
-  setCurrentCategory: (category: Category) => void;
+  setCurrentCategory: (category: Category | null) => void;
   changeAsset: (
     category: CATEGORIES_NAMES,
     asset: CategoryAsset | null,

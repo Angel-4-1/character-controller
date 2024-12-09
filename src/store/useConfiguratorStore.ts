@@ -53,7 +53,7 @@ export const useConfiguratorStore = create<ConfiguratorStore>()((set, get: any) 
   updateSkin: (color: string) => {
     get().skin.color.set( color );
   },
-  setCurrentCategory: (category: Category) => set({ currentCategory: category }),
+  setCurrentCategory: (category: Category | null) => set({ currentCategory: category }),
   changeAsset: (category: CATEGORIES_NAMES, asset: CategoryAsset | null, parentPath: string) => {
     set((state: any) => ({
       customization: {

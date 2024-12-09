@@ -8,6 +8,8 @@ import { STAGES, STAGES_MAP } from "~/constants";
 import { useConfiguratorStore } from "~/store";
 import { PHOTO_POSES } from "~/store/animations";
 import { UI_MODES } from "~/store/uiModes";
+import Button from "~/components/Button";
+import { SVG } from "~/components/SVG";
 
 const PosesBox = () => {
   const pose = useConfiguratorStore((state) => state.pose);
@@ -39,9 +41,6 @@ const AssetsBox = () => {
     lockedGroups,
   } = useConfiguratorStore();
 
-  // if(currentCategory)
-  //   console.log( customization[currentCategory.name] )
-
   return (
     <div className="assets-box">
       {/* Categories list */}
@@ -49,7 +48,13 @@ const AssetsBox = () => {
         {categories.map((category: any) => (
           <button
             key={category.id}
-            onClick={() => setCurrentCategory(category)}
+            onClick={() => {
+              if (currentCategory === category) {
+                setCurrentCategory(null)
+              } else {
+                setCurrentCategory(category)
+              }
+            }}
             className={`category ${
               currentCategory?.name === category.name
                 ? "category-selected"
@@ -125,16 +130,136 @@ const AssetsBox = () => {
   )
 }
 
+const Resizable = (props: any) => {
+  function makeResizableDiv(div) {
+    const element = document.querySelector(div);
+    const resizers = document.querySelectorAll(div + " .resizer");
+    const minimum_size = 20;
+    let original_width = 0;
+    let original_height = 0;
+    let original_x = 0;
+    let original_y = 0;
+    let original_mouse_x = 0;
+    let original_mouse_y = 0;
+  
+    let mouseMoveHandler = undefined;
+  
+    function onMouseDownWrapper(currentResizer) {
+      return function onMouseDown(e) {
+        e.preventDefault();
+        original_width = parseFloat(
+          getComputedStyle(element, null)
+            .getPropertyValue("width")
+            .replace("px", "")
+        );
+        original_height = parseFloat(
+          getComputedStyle(element, null)
+            .getPropertyValue("height")
+            .replace("px", "")
+        );
+        original_x = element.getBoundingClientRect().left;
+        original_y = element.getBoundingClientRect().top;
+        original_mouse_x = e.pageX;
+        original_mouse_y = e.pageY;
+        mouseMoveHandler = resizeWrapper(currentResizer);
+        window.addEventListener("mousemove", mouseMoveHandler);
+        window.addEventListener("mouseup", stopResizeWrapper(currentResizer));
+      };
+    }
+  
+    function resizeWrapper(currentResizer) {
+      return function resize(e) {
+        // console.log("resize", e.pageX, e.pageY);
+        if (currentResizer.classList.contains("bottom-right")) {
+          const width = original_width + (e.pageX - original_mouse_x);
+          const height = original_height + (e.pageY - original_mouse_y);
+          if (width > minimum_size) {
+            element.style.width = width + "px";
+          }
+          if (height > minimum_size) {
+            element.style.height = height + "px";
+          }
+        } else if (currentResizer.classList.contains("bottom-left")) {
+          const height = original_height + (e.pageY - original_mouse_y);
+          const width = original_width - (e.pageX - original_mouse_x);
+          if (height > minimum_size) {
+            element.style.height = height + "px";
+          }
+          if (width > minimum_size) {
+            element.style.width = width + "px";
+            element.style.left = original_x + (e.pageX - original_mouse_x) + "px";
+          }
+        } else if (currentResizer.classList.contains("top-right")) {
+          const width = original_width + (e.pageX - original_mouse_x);
+          const height = original_height - (e.pageY - original_mouse_y);
+          if (width > minimum_size) {
+            element.style.width = width + "px";
+          }
+          if (height > minimum_size) {
+            element.style.height = height + "px";
+            element.style.top = original_y + (e.pageY - original_mouse_y) + "px";
+          }
+        } else {
+          const width = original_width - (e.pageX - original_mouse_x);
+          const height = original_height - (e.pageY - original_mouse_y);
+          if (width > minimum_size) {
+            element.style.width = width + "px";
+            element.style.left = original_x + (e.pageX - original_mouse_x) + "px";
+          }
+          if (height > minimum_size) {
+            element.style.height = height + "px";
+            element.style.top = original_y + (e.pageY - original_mouse_y) + "px";
+          }
+        }
+      };
+    }
+  
+    function stopResizeWrapper(currentResizer) {
+      // console.log("stopResizeWrapper", currentResizer);
+      return function stopResize() {
+        // console.log("stopResize", currentResizer);
+        // window.removeEventListener("mousemove", resizeWrapper(currentResizer));
+        window.removeEventListener("mousemove", mouseMoveHandler);
+      };
+    }
+  
+    for (let i = 0; i < resizers.length; i++) {
+      const currentResizer = resizers[i];
+      currentResizer.addEventListener(
+        "mousedown",
+        onMouseDownWrapper(currentResizer)
+      );
+    }
+  }
+
+  useEffect(() => {
+    makeResizableDiv(".resizable");
+  }, [props])  
+
+  return (
+    <div className="resizable">
+      <div className="resizers">
+        <div className="resizer top-left" />
+        <div className="resizer top-right" />
+        <div className="resizer bottom-left" />
+        <div className="resizer bottom-right" />
+        <div className="innerContent">{props.children}</div>
+      </div>
+    </div>
+  );
+}
+
 const DownloadButton = () => {
   const download = useConfiguratorStore((state: any) => state.download);
-  
+
   return (
-    <button
-      className="download-button"
+    <Button
       onClick={download}
     >
-      Download
-    </button>
+      <SVG 
+        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+      />
+    </Button>
   );
 };
 
@@ -146,12 +271,11 @@ const NextButton = () => {
 	};
   
   return (
-    <button
-      className="download-button"
+    <Button
       onClick={onClick}
     >
-      Next
-    </button>
+      <>Continue</>
+    </Button>
   );
 };
 
@@ -159,24 +283,13 @@ const RandomizeButton = () => {
   const randomize = useConfiguratorStore((state) => state.randomize);
   
   return (
-    <button
-      className="randomize"
+    <Button
       onClick={randomize}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="size-6"
-      >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-      </svg>
-    </button>
+      <SVG
+        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+      />
+    </Button>
   );
 };
 
@@ -184,29 +297,17 @@ const ScreenshotButton = () => {
   const screenshot = useConfiguratorStore((state) => state.screenshot);
   
   return (
-    <button
-      className="randomize"
+    <Button
       onClick={screenshot}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="size-6">
-          <path 
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
-          
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
-    </svg>
+      <SVG
+        d={[
+          "M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z",
+          "M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+        ]}
+      />
 
-    </button>
+    </Button>
   );
 };
 
@@ -246,122 +347,79 @@ const ColorPicker = () => {
   );
 };
 
-export default function CharacterCustomizationInterface() {
-	const [language, setLanguage] = useAtom(languageAtom);
-
+const Modes = () => {
   const currentCategory = useConfiguratorStore(
     (state: any) => state.currentCategory
   );
 
   const customization = useConfiguratorStore((state: any) => state.customization)
+
   const mode = useConfiguratorStore((state) => state.mode);
   const setMode = useConfiguratorStore((state) => state.setMode);
 
-	return (
-      <main
-        style={{
-          pointerEvents: 'none',
-          position: "fixed",
-          zIndex: 10,
-          inset: '0px',
-          padding: '2.5rem',
-          userSelect: "none",
-        }}
-      >
-        <div
-          style={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            height: '100%',
-            maxWidth: '1280px',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '2.5rem' /* 40px */,
-              paddingTop: '0px',
-            }}
+  return (
+    <>
+      { mode === UI_MODES.CUSTOMIZE && (
+        <>
+          {currentCategory?.colorPalette &&
+            customization[currentCategory.name] && <ColorPicker />}
+          <AssetsBox />
+        </>
+      )}
+      
+      <div className="modes-selector">
+        { mode === UI_MODES.PHOTO && (
+          <PosesBox />
+        )}
+
+        <div className="modes">
+          <button
+            className={`modes-button
+              ${
+                mode === UI_MODES.CUSTOMIZE
+                  ? "modes-button-selected"
+                  : "modes-button-not-selected"
+              }
+            `}
+            onClick={() => setMode(UI_MODES.CUSTOMIZE)}
           >
-            <a
-              style={{
-                pointerEvents: 'auto'
-              }} 
-              href=""
-            >
-              <img
-                style={{
-                  width: '5rem'
-                }}
-                src="/icon.png"
-              />
-            </a>
-
-            <div style={{
-              display: "flex",
-              gap: "6px",
-            }}>
-              <RandomizeButton />
-              <ScreenshotButton />
-              <DownloadButton />
-              <NextButton />
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              paddingLeft: '2.5rem' /* 40px */,
-              paddingRight: '2.5rem' /* 40px */,
-            }}>
-              { mode === UI_MODES.CUSTOMIZE && (
-                <>
-                  {currentCategory?.colorPalette &&
-                    customization[currentCategory.name] && <ColorPicker />}
-                  <AssetsBox />
-                </>
-              )}
-              { mode === UI_MODES.PHOTO && (
-                <PosesBox />
-              )}
-
-              <div className="modes">
-                <button
-                  className={`modes-button
-                    ${
-                      mode === UI_MODES.CUSTOMIZE
-                        ? "modes-button-selected"
-                        : "modes-button-not-selected"
-                    }
-                  `}
-                  onClick={() => setMode(UI_MODES.CUSTOMIZE)}
-                >
-                  Customize avatar
-                </button>
-                <div className="modes-divider"></div>
-                <button
-                  className={`modes-button
-                    ${
-                      mode === UI_MODES.PHOTO
-                        ? "modes-button-selected"
-                        : "modes-button-not-selected"
-                    }
-                    `}
-                  onClick={() => setMode(UI_MODES.PHOTO)}
-                >
-                  Photo booth
-                </button>
-              </div>
-
-          </div>
+            Customize avatar
+          </button>
+          
+          <button
+            className={`modes-button
+              ${
+                mode === UI_MODES.PHOTO
+                  ? "modes-button-selected"
+                  : "modes-button-not-selected"
+              }
+              `}
+            onClick={() => setMode(UI_MODES.PHOTO)}
+          >
+            Photo booth
+          </button>
         </div>
-      </main>
+      </div>
+    </>
+  )
+};
+
+export default function CharacterCustomizationInterface() {
+	return (
+    <>
+      <div className="buttons-group">
+        <div className="buttons-group-row">
+          <RandomizeButton />
+          <ScreenshotButton />
+          <DownloadButton />
+          <NextButton />
+        </div>
+      </div>
+
+      {/* <Resizable>
+        <div>inner content</div>
+      </Resizable> */}
+        <Modes />
+    </>
   )
 }
